@@ -1,0 +1,25 @@
+[project]
+name = "pyscheme"
+version = "0.0.1"
+requires-python = ">=3.11"
+authors = [
+    {name="Eyram K. Apetcho", email="eyram.apetcho@gmail.com"},
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+
+[project.scripts]
+pyscheme = "pyscheme:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pyscheme*"]
+exclude = ["pyscheme.tests*"]
+
+[tool.setuptools]
+include-package-data = true

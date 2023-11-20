@@ -414,8 +414,10 @@ class Env:
             env = env.parent
         return env
     
-    def make_call_env(self, formals, vals):
-        pass
+    def make_call_env(self, params, values):
+        env = Env(self)
+        # TODO : add my code here
+        return env
     
     def define(self, sym, val):
         pass

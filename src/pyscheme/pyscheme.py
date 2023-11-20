@@ -17,9 +17,9 @@ class Buffer:
     """Buffer."""
     def __init__(self, source):
         self.index = 0
-        self.lines = []
+        self.lines: List[str] = []
         self.source = source
-        self.current_line = ()
+        self.current_line: Optional[str] = None
         self.current()
         
     def pop(self) -> str:
@@ -32,8 +32,17 @@ class Buffer:
     def has_more(self) -> bool:
         return self.index < len(self.current_line)
     
-    def current(self) -> str:
-        pass
+    def current(self) -> Optional[str]:
+        """Return the current element or None if none exists."""
+        while not self.has_more:
+            self.index = 0
+            try:
+                self.current_line = next(self.source)
+                self.lines.append(self.current_line)
+            except StopIteration:
+                self.current_line = None
+                return None
+        return self.current_line[self.index]
     
     def __str__(self):
         pass

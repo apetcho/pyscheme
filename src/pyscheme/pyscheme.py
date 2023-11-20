@@ -718,8 +718,10 @@ def prim_greater_equal(x, y):
 
 
 @primitive("even?")
-def prim_evenp(val):
-    pass
+def prim_evenp(arg):
+    # TODO: arg should be an integer. check it
+    _check_numbers(arg)
+    return arg % 2 == 0
 
 
 @primitive("odd?")

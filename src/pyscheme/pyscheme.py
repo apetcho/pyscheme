@@ -5,6 +5,7 @@ import math
 import string
 import tokenize
 import itertools
+import functools
 from typing import (
     Tuple, Union, Callable, Dict, List, Iterator, Any, Optional
 )
@@ -221,7 +222,11 @@ class Tokenizer:
         return map(self.tokenize_line, self.source)
     
     def count_tokens(self):
-        pass
+        filtered = filter(
+            lambda x: x not in Tokenizer.DELIMITERS,
+            itertools.chain(*self.tokenize())
+        )
+        return len(list(filtered))
     
 
 # -*--------------------*-

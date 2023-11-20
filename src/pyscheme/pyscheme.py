@@ -889,13 +889,48 @@ def pyscm_cond(args, env):
     return ok
 
 
-def pyscm_begin(vals, env):
-    pass
+def pyscm_begin(params, env):
+    check_form(params, 1)
+    # TODO: (not completed) finish the implementation of this part
+
+LOGIC_FORMS = {
+    "and": pyscm_and,
+    "or": pyscm_or,
+    "if": pyscm_if,
+    "cond": pyscm_cond,
+    "begin": pyscm_begin,
+}
 
 
-
-def pyscm_optimize_eval(vals, env):
-    pass
+def pyscm_optimize_eval(expr, env: Env):
+    while True:
+        if expr is None:
+            raise PySchemeError("Cannot evaluate an undefined expression.")
+        # Evaluate atoms
+        if prim_symbolp(expr):
+            return env.lookup(expr)
+        elif prim_atomp(expr) or prim_stringp(expr) or expr is ok:
+            return expr
+        # All non-atomic expressions are lists
+        if not prim_listp(expr):
+            raise PySchemeError(f"Malformed list: {str(expr)}")
+        car, cdr = expr.car, expr.cdr
+        # Evaluate combinations
+        if prim_symbolp(car) and car in LOGIC_FORMS:
+            # TODO: (not completed) finish the implementation of this part
+            pass
+        elif car == "lambda":
+            return pyscm_lambda(cdr, env)
+        elif car == "define":
+            return pyscm_define(cdr, env)
+        elif car == "quote":
+            return pyscm_quote(cdr)
+        elif car == "let":
+            # TODO: (not completed) finish the implementation of this part
+            pass
+        else:
+            # TODO: (not completed) finish the implementation of this part
+            pass
 
 
 def pyscm_eval(vals, env):

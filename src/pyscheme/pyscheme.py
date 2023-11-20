@@ -30,7 +30,7 @@ class Buffer:
     
     @property
     def has_more(self) -> bool:
-        pass
+        return self.index < len(self.current_line)
     
     def current(self) -> str:
         pass

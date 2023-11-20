@@ -594,8 +594,8 @@ def prim_append(*args):
 
 
 @primitive("string?")
-def prim_stringp(val):
-    pass
+def prim_stringp(arg):
+    return isinstance(arg, str) and arg.startswith('"')
 
 
 @primitive("symbol?")

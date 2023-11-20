@@ -69,7 +69,9 @@ class InputReader:
         self.prompt = promot
         
     def __iter__(self):
-        pass
+        while True:
+            yield input(self.prompt)
+            self.prompt = ' ' * len(self.prompt)
     
 class LineReader:
     """LineReader."""

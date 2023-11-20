@@ -658,7 +658,10 @@ def prim_div(x, y):
 
 @primitive("quotient")
 def prim_quotient(x, y):
-    pass
+    try:
+        return _impl_arith(operator.floordiv, x, [y])
+    except ZeroDivisionError as err:
+        raise PySchemeError(err)
 
 
 @primitive("modulo", "remainder")

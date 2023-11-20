@@ -731,8 +731,9 @@ def prim_oddp(arg):
 
 
 @primitive("zero?")
-def prim_zerop(val):
-    pass
+def prim_zerop(arg):
+    _check_numbers(arg)
+    return arg == 0
 
 
 @primitive("atom?")

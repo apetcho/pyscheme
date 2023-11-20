@@ -76,13 +76,23 @@ class InputReader:
 class LineReader:
     """LineReader."""
     
-    def __init__(self, lines, prompt, comment=";"):
+    def __init__(self, lines: List[str], prompt, comment=";"):
         self.lines = lines
         self.prompt = prompt
         self.comment = comment
         
     def __iter__(self):
-        pass
+        while self.lines:
+            line = self.lines.pop(0).strip('\n')
+            test = (
+                self.prompt is not None and line != "" and
+                not line.lstrip().startswith(self.comment)
+            )
+            if test:
+                print(f"{self.prompt}{line}")
+                self.prompt = ' ' * len(self.prompt)
+            yield line
+        raise EOFError
 
 
 # -*- scheme_tokens.py -*-

@@ -382,11 +382,16 @@ class Env:
     """Env."""
     
     def __init__(self, parent: Optional["Env"]=None):
-        self.binding = {}
+        self.bindings = {}
         self.parent = parent
         
     def __repr__(self):
-        pass
+        if self.parent is None:
+            return "<GLOBAL ENVIRONMENT>"
+        else:
+            data = [f"{key}: {val}" for key, val in self.bindings.items()]
+            result = f"<{{{', '.join(data)}}} -> {repr(self.parent)}>"
+            return result
     
     def lookup(self, symbol):
         pass

@@ -98,7 +98,14 @@ class LineReader:
 # -*- scheme_tokens.py -*-
 
 class Tokenizer:
-    """Tokenizer."""
+    """Tokenizer.
+    
+    A token may be:
+    - A number (represented as an int or float)
+    - A boolean (represented as a bool)
+    - A symbol (represented as string)
+    - A delimiter, including parentheses, dot, and single quotes
+    """
     NUMCHARS = set(string.digits) | set("+-.")
     SYMBOLCHARS = (
         set("!$%&*/:<=>?@^_~") | set(string.ascii_letters) | NUMCHARS
@@ -115,8 +122,21 @@ class Tokenizer:
         self._source = source
         self._lines = source.split("\n")
         
+    @property
+    def source(self):
+        return self._source
+    
+    @property
+    def lines(self) -> List[str]:
+        return self._lines
+        
     def is_valid_symbol(self, text:str) -> bool:
-        pass
+        if len(self.source) == 0:
+            return False
+        for c in self.source:
+            if c not in Tokenizer.SYMBOLCHARS:
+                return False
+        return True
     
     def next_token(self, line:str, idx:int) -> Tuple[str, int]:
         pass

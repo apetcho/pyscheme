@@ -679,8 +679,9 @@ def prim_floor(arg):
 
 
 @primitive("ceil")
-def prim_ceil(val):
-    pass
+def prim_ceil(arg):
+    _check_numbers(arg)
+    return math.ceil(arg)
 
 # TODO: implement other basic math function including:
 # cos, sin, tan, acos, asin, acos, hypot, ...

@@ -11,6 +11,9 @@ from typing import (
 )
 
 
+class PySchemeError(Exception):
+    pass
+
 # -*-------------*-
 # -*- buffer.py -*-
 # -*-------------*-
@@ -394,7 +397,16 @@ class Env:
             return result
     
     def lookup(self, symbol):
-        pass
+        result = None
+        for key, val in self.bindings.items():
+            if key == symbol:
+                result = val
+                break
+        if result is not None:
+            return result
+        else:
+            self.parent.lookup(symbol)
+        raise PySchemeError("unknown identifier")
     
     def global_env(self):
         pass

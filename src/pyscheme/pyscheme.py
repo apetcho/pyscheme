@@ -737,8 +737,16 @@ def prim_zerop(arg):
 
 
 @primitive("atom?")
-def prim_atomp(val):
-    pass
+def prim_atomp(arg) -> bool:
+    if prim_booleanp(arg):
+        return True
+    if prim_numberp(arg):
+        return True
+    if prim_symbolp(arg):
+        return True
+    if prim_nullp(arg):
+        return True
+    return False
 
 
 @primitive("display")

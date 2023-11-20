@@ -445,11 +445,11 @@ class Lambda:
         return self._env
         
     
-    def __init__(self):
-        pass
+    def __str__(self):
+        return f"(lambda {str(self.params)} {str(self.body)})"
     
     def __repr__(self):
-        pass
+        return f"Lambda({repr(self.params)}, {repr(self.body)}, {repr(self.env)})"
     
     
 class Primitive:

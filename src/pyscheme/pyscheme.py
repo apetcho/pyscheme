@@ -703,8 +703,8 @@ def prim_less(x, y):
 
 
 @primitive(">")
-def prim_greater(val):
-    pass
+def prim_greater(x, y):
+    return _impl_num_cmp(operator.gt, x, y)
 
 
 @primitive("<=")

@@ -455,17 +455,12 @@ class Lambda:
     
 class Primitive:
     """Primitive."""
-    __slots__ = ("_callback", "_use_env", "_name")
+    __slots__ = ("_callback", "_use_env")
     
-    def __init__(self, name, fun: Callable, use_env=False):
-        self._name = name
+    def __init__(self, fun: Callable, use_env=False):
         self._callback = fun
         self._use_env = use_env
-        
-    @property
-    def name(self):
-        return self._name
-        
+                
     @property
     def callback(self):
         return self._callback
@@ -475,17 +470,21 @@ class Primitive:
         return self._use_env
     
     def __str__(self):
-        return f"#<primitive::{self.name}>"
+        return f"#<primitive>"
     
     
 PRIMITIVES = {}
 
 
 def primitive(*names):
-    """Decorator..."""
-    
+    """Decorate a primitive function"""
+    # functools.wraps(fun)
     def wrapper(fun):
-        pass
+        prim = Primitive(fun)
+        for name in names:
+            PRIMITIVES[name] = prim
+        return fun
+    return wrapper
     
 def add_primitives(env: Env):
     """Ente bindings in PRIMITIVES into Env, an environment frame."""

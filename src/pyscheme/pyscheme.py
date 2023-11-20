@@ -1,6 +1,7 @@
 """Pyscheme"""
 
 import sys
+import math
 import string
 import tokenize
 import itertools
@@ -45,7 +46,20 @@ class Buffer:
         return self.current_line[self.index]
     
     def __str__(self):
-        pass
+        """Return recently read contents.
+        
+        Current element is marked with >>.
+        """
+        num = len(self.lines)
+        fmt = "{0:>" + str(math.floor(math.log10(num))+1) + "}: "
+        txt = ""
+        for i in range(max(0, num-4), num-1):
+            txt += txt.format(i+1) + ' '.join(map(str, self.lines[i])) + "\n"
+        txt += txt.format(num)
+        txt += ' '.join(map(str, self.current_line[:self.index]))
+        txt += " >> "
+        txt += ' '.join(map(str, self.current_line[self.index:]))
+        return txt.strip()
     
     
 class InputReader:

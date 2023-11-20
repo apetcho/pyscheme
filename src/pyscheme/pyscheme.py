@@ -470,7 +470,7 @@ class Primitive:
         return self._use_env
     
     def __str__(self):
-        pass
+        return "#<primitive>"
     
     
 PRIMITIVES = {}

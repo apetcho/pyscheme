@@ -687,8 +687,9 @@ def prim_ceil(arg):
 # cos, sin, tan, acos, asin, acos, hypot, ...
 
 
-def _numcomp(op, x, y):
-    pass
+def _impl_num_cmp(op, x, y):
+    _check_numbers(x, y)
+    return op(x, y)
 
 
 @primitive("=")

@@ -933,8 +933,34 @@ def pyscm_optimize_eval(expr, env: Env):
             pass
 
 
-def pyscm_eval(vals, env):
-    pass
+def pyscm_eval(expr: Optional[Any], env: Env):
+    if expr is None:
+        raise PySchemeError("cannot evaluate an undefined expression.")
+    # Evaluate atoms
+    if prim_symbolp(expr):
+        return env.lookup(expr)
+    elif prim_atomp(expr) or prim_stringp(expr) or expr is ok:
+        return expr
+    # All non-atomic expressions are lists
+    if not prim_listp(expr):
+        raise PySchemeError(f"Malformed list: {str(expr)}")
+    car, cdr = expr.car, expr.cdr
+    # Evaluate combinations
+    if prim_symbolp(car) and cdr in LOGIC_FORMS:
+        return pyscm_eval(LOGIC_FORMS[car](cdr, env), env)
+    elif car == "lambda":
+        return pyscm_lambda(cdr, env)
+    elif car == "define":
+        return pyscm_define(cdr, env)
+    elif car == "quote":
+        return pyscm_quote(cdr)
+    elif car == "let":
+        expr, env = pyscm_let(cdr, env)
+        return pyscm_eval(expr, env)
+    else:
+        fun = pyscm_eval(car, env)
+        args = cdr.map(lambda xarg: pyscm_eval(xarg, env))
+        return pyscm_apply(fun, args, env)
 
 
 def pyscm_apply(proc, args, env):

@@ -698,8 +698,8 @@ def prim_eq(x, y):
 
 
 @primitive("<")
-def prim_less(val):
-    pass
+def prim_less(x, y):
+    return _impl_num_cmp(operator.lt, x, y)
 
 
 @primitive(">")

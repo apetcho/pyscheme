@@ -280,7 +280,11 @@ class Pair:
         return self.car==other.car and self.cdr==other.cdr
     
     def map(self, fun: Callable):
-        pass
+        mapped = fun(self.car)
+        if self.cdr is nil or isinstance(self.cdr, type(self)):
+            return Pair(mapped, self.cdr.map(fun))
+        else:
+            raise TypeError("ill-formed list")
 
 
 class Nil:

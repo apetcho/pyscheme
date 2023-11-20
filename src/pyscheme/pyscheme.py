@@ -505,8 +505,8 @@ def prim_booleanp(arg):
     return arg is True or arg is False
 
 
-def prim_true(val):
-    pass
+def prim_true(arg):
+    return arg is not False
 
 
 def prim_false(val):

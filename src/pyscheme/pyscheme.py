@@ -236,12 +236,12 @@ class Tokenizer:
 class Pair:
     """Pair."""
     
-    def __init__(self, first, second):
-        self.first = first
-        self.second = second
+    def __init__(self, car, cdr):
+        self.car = car
+        self.cdr = cdr
         
     def __repr__(self):
-        pass
+        return f"Pair({repr(self.car)}, {repr(self.cdr)})"
     
     def __str__(self):
         pass

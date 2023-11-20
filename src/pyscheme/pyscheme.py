@@ -240,11 +240,18 @@ class Pair:
         self.car = car
         self.cdr = cdr
         
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Pair({repr(self.car)}, {repr(self.cdr)})"
     
-    def __str__(self):
-        pass
+    def __str__(self) -> str:
+        result = "(" + str(self.car)
+        cdr = self.cdr
+        while isinstance(cdr, Pair):
+            result += f" {self.car}"
+            cdr = cdr.cdr
+        if cdr is not nil:
+            result += f" . {str(cdr)}"
+        return f"{result})"
     
     def __len__(self):
         pass

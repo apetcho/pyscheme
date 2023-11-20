@@ -816,8 +816,18 @@ def pyscm_lambda(args, env):
     # TODO. (not completed) continue the implementation 
 
 
-def pyscm_define(vals, env):
-    pass
+def pyscm_define(params, env):
+    """TODO"""
+    check_form(params, 2)
+    symbol = params[0]
+    if prim_symbolp(symbol):
+        check_form(params, 2, 2)
+        # TODO: (not completed) finish the implementation of this part
+    elif isinstance(symbol, Pair):
+        # TODO: (not completed) finish the implementation of this part
+        pass
+    else:
+        raise PySchemeError("Invalid argument to `define'")
 
 
 def pyscm_quote(vals, env):

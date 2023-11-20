@@ -533,8 +533,12 @@ def prim_nullp(arg):
 
 
 @primitive("list?")
-def prim_listp(val):
-    pass
+def prim_listp(arg: Union[Pair, Any]) -> bool:
+    while arg is not nil:
+        if not isinstance(arg, Pair):
+            return False
+        arg = arg.cdr
+    return True
 
 
 @primitive("length")

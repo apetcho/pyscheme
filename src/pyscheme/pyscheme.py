@@ -263,7 +263,16 @@ class Pair:
         return n
     
     def __getitem__(self, idx):
-        pass
+        if idx < 0:
+            raise IndexError("negative index into list")
+        node = self
+        for _ in range(idx):
+            if node.cdr is nil:
+                raise IndexError("list out of bounds")
+            elif not isinstance(node.cdr, type(self)):
+                raise TypeError("ill-formed list")
+            node = node.cdr
+        return node.car
     
     def __eq__(self, other):
         pass

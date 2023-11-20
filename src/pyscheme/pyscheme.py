@@ -862,8 +862,8 @@ def pyscm_and(params, env):
     pass
 
 
-def pyscm_quote(vals, env):
-    pass
+def pyscm_quote(arg, env):
+    return Pair("quote", Pair(arg, nil))
 
 
 def pyscm_or(vals, env):

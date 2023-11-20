@@ -604,8 +604,8 @@ def prim_symbolp(arg):
 
 
 @primitive("nnumber?")
-def prim_numberp(val):
-    pass
+def prim_numberp(arg):
+    return isinstance(arg, int) or isinstance(arg, float)
 
 
 @primitive("integer?")

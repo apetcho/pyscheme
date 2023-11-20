@@ -455,11 +455,16 @@ class Lambda:
     
 class Primitive:
     """Primitive."""
-    __slots__ = ("_callback", "_use_env")
+    __slots__ = ("_callback", "_use_env", "_name")
     
-    def __init__(self, fun: Callable, use_env=False):
+    def __init__(self, name, fun: Callable, use_env=False):
+        self._name = name
         self._callback = fun
         self._use_env = use_env
+        
+    @property
+    def name(self):
+        return self._name
         
     @property
     def callback(self):

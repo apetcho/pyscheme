@@ -514,8 +514,8 @@ def prim_false(arg):
 
 
 @primitive("not")
-def prim_not(val):
-    pass
+def prim_not(arg):
+    return not prim_true(arg)
 
 @primitive("eq?", "equal?")
 def prim_eqp(x, y):

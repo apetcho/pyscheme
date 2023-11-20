@@ -725,8 +725,9 @@ def prim_evenp(arg):
 
 
 @primitive("odd?")
-def prim_oddp(val):
-    pass
+def prim_oddp(arg):
+    _check_numbers(arg)
+    return arg % 2 == 1
 
 
 @primitive("zero?")

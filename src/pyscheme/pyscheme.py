@@ -637,8 +637,10 @@ def prim_add(*args):
 
 
 @primitive("-")
-def prim_sub(val0, *vals):
-    pass
+def prim_sub(arg0, *args):
+    if len(args) == 0:  # negation
+        return -arg0
+    return _impl_arith(operator.sub, arg0, args)
 
 
 @primitive("*")

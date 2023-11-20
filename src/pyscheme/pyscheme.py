@@ -830,8 +830,9 @@ def pyscm_define(params, env):
         raise PySchemeError("Invalid argument to `define'")
 
 
-def pyscm_quote(vals, env):
-    pass
+def pyscm_quote(params, env):
+    check_form(params, 1, 1)
+    # TODO: (not completed) finish the implementation of this part
 
 
 def pyscm_let(vals, env):

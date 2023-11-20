@@ -555,8 +555,9 @@ def prim_cons(car, cdr) -> Pair:
 
 
 @primitive("car")
-def prim_car(val):
-    pass
+def prim_car(arg: Union[Pair, Any]):
+    check_type(arg, prim_pairp, 0, "car")
+    return arg.car
 
 
 @primitive("cdr")

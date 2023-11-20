@@ -609,8 +609,8 @@ def prim_numberp(arg):
 
 
 @primitive("integer?")
-def prim_intergerp(val):
-    pass
+def prim_intergerp(arg):
+    return isinstance(arg, int) or (prim_numberp(arg) and round(arg)==arg)
 
 
 def _check_nums(*vals):

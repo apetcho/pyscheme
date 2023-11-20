@@ -804,11 +804,16 @@ def check_form(expr, minval, maxval=None):
 
 
 def check_params(params):
+    # TODO: implement later
     pass
 
 
-def pyscm_lambda(vals, env):
-    pass
+def pyscm_lambda(args, env):
+    """Evaluate a lambda form with params `args` in environment."""
+    check_form(args, 2)
+    params = args[0]
+    check_params(params)
+    # TODO. (not completed) continue the implementation 
 
 
 def pyscm_define(vals, env):

@@ -357,7 +357,8 @@ class Parser:
     
     @staticmethod
     def input(prompt="") -> Buffer:
-        pass
+        mytoknz = Tokenizer(InputReader(prompt))
+        return Buffer(mytoknz.tokenize())
     
     @staticmethod
     def lines(src:List[str], prompt="", show_prompt=False) -> Buffer:

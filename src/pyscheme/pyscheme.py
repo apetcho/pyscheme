@@ -218,7 +218,7 @@ class Tokenizer:
         return result
     
     def tokenize(self) -> Iterator:
-        pass
+        return map(self.tokenize_line, self.source)
     
     def count_tokens(self):
         pass

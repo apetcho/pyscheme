@@ -550,8 +550,8 @@ def prim_length(arg:Union[Pair, Any]) -> int:
 
 
 @primitive("cons")
-def prim_cons(car, cdr):
-    pass
+def prim_cons(car, cdr) -> Pair:
+    return Pair(car, cdr)
 
 
 @primitive("car")

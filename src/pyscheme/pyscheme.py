@@ -857,7 +857,8 @@ def pyscm_if(params, env):
     # TODO: (not completed) finish the implementation of this part
 
 
-def pyscm_and(vals, env):
+def pyscm_and(params, env):
+    # TODO: (not completed) finish the implementation of this part
     pass
 
 

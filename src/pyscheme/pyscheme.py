@@ -575,8 +575,22 @@ def prim_list(*args):
 
 
 @primitive("append")
-def prim_append(*val):
-    pass
+def prim_append(*args):
+    if len(args) == 0:
+        return nil
+    result = args[-1]
+    for i in range(len(args)-2, -1, -1):
+        arg = args[i]
+        if arg is not nil:
+            check_type(arg, prim_pairp, i, "append")
+            rv = node = Pair(arg.car, result)
+            arg = arg.cdr
+            while prim_pairp(arg):
+                node.cdr = Pair(arg.cdr, result)
+                node = node.cdr
+                arg = node.cdr
+            result = rv
+    return result
 
 
 @primitive("string?")

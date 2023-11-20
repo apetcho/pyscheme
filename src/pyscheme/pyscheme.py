@@ -835,8 +835,21 @@ def pyscm_quote(params, env):
     # TODO: (not completed) finish the implementation of this part
 
 
-def pyscm_let(vals, env):
-    pass
+def pyscm_let(params: Pair, env: Env):
+    check_form(params, 2)
+    bindings = params[0]
+    exprs = params.cdr
+    if not prim_listp(bindings):
+        raise PySchemeError("Invalid bindings list in let form")
+    # Add an environment containing bindings
+    names, values = nil, nil
+    # TODO: (not completed) finish the implementation of this part
+    scope = env.make_call_env(names, values)
+    # Evaluate all buf the last expression after bindings, and return the last
+    last = len(exprs)-1
+    for i in range(0, last):
+        pyscm_eval(exprs[i], scope)
+    return (exprs[last], scope)
 
 
 def pyscm_if(vals, env):

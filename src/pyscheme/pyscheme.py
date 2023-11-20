@@ -519,7 +519,7 @@ def prim_not(arg):
 
 @primitive("eq?", "equal?")
 def prim_eqp(x, y):
-    pass
+    return x == y
 
 
 @primitive("pair?")

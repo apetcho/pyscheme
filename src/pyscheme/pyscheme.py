@@ -762,16 +762,17 @@ def prim_atomp(arg) -> bool:
 
 
 @primitive("display")
-def prim_display(arg):
+def prim_display(arg) -> Okay:
     if prim_stringp(arg):
         arg = eval(arg)
-    print(f"{arg}", end="")
+    print(f"{str(arg)}", end="")
     return ok
 
 
 @primitive("print")
-def prim_print(val):
-    pass
+def prim_print(arg) -> Okay:
+    print(str(arg))
+    return ok
 
 
 @primitive("newline")

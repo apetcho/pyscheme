@@ -979,10 +979,34 @@ def pyscm_apply(fun, args, env):
 
 
 def pyscm_repl(
-    nxtline, env, quiet=False, startup=False,
+    nxtline: Callable, env, quiet=False, startup=False,
     interactive=False, load_files=()
 ) -> None:
-    pass
+    """Read and evaluate input until and end-of-line or keyboard interrupt."""
+    if startup:
+        for filename in load_files:
+            pyscm_load(filename, True, env)
+    while True:
+        try:
+            buffer: Buffer = nxtline()
+            while buffer.has_more:
+                expr = Parser(buffer).read_expr()
+                result = pyscm_eval(expr, env)
+                if not quiet and result is not None:
+                    print(result)
+        except (PySchemeError, SyntaxError, ValueError, RuntimeError) as err:
+            txt = "maximum recursion depth exceeded"
+            if isinstance(err, RuntimeError) and txt not in err.args[0]:
+                raise
+            print(f"Error: {err}")
+        except KeyboardInterrupt:   # <Control>-C
+            if not startup:
+                raise
+            print("\nKeyboardInterrupt")
+            if not interactive:
+                return
+        except EOFError:            # <Control>-D
+            return
 
 
 def pyscm_load(*args):

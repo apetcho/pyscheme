@@ -650,7 +650,10 @@ def prim_mul(*args):
 
 @primitive("/")
 def prim_div(x, y):
-    pass
+    try:
+        return _impl_arith(operator.truediv, x, [y])
+    except ZeroDivisionError as err:
+        raise PySchemeError(err)
 
 
 @primitive("quotient")

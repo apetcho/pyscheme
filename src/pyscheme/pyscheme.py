@@ -613,8 +613,11 @@ def prim_intergerp(arg):
     return isinstance(arg, int) or (prim_numberp(arg) and round(arg)==arg)
 
 
-def _check_nums(*vals):
-    pass
+def _check_numbers(*args):
+    for i, arg in enumerate(args):
+        if not prim_numberp(arg):
+            msg = f"operand {i} ({arg}) is not a number"
+            raise PySchemeError(msg)
 
 
 def _arith(fun, init, vals):

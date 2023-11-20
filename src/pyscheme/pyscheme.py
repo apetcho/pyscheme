@@ -6,6 +6,7 @@ import string
 import tokenize
 import itertools
 import functools
+import operator
 from typing import (
     Tuple, Union, Callable, Dict, List, Iterator, Any, Optional
 )
@@ -631,8 +632,8 @@ def _impl_arith(fun, init, args):
 
 
 @primitive("+")
-def prim_add(val):
-    pass
+def prim_add(*args):
+    return _impl_arith(operator.add, 0, args)
 
 
 @primitive("-")

@@ -324,10 +324,22 @@ class Parser:
     
     def __init__(self, source: Buffer):
         self._source = source
-        self._tmp = None
+        # self._tmp: Optional[Buffer] = None
         
-    def parse(self):
-        pass
+    def read_expr(self):
+        tmp = self._source
+        if tmp.current() is None:
+            raise EOFError
+        val = tmp.pop()
+        if val == "nil":
+            return nil
+        elif val not in Tokenizer.DELIMITERS:
+            return val
+        elif val == "'": # quoted symbol
+            pass    # TODO
+        elif val == "(":
+            return self._read_tail(tmp)
+        raise SyntaxError(f"unexpected token: {val}")
     
     def _read_tail(self):
         pass

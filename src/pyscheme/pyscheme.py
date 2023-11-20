@@ -1010,7 +1010,21 @@ def pyscm_repl(
 
 
 def pyscm_load(*args):
-    pass
+    if not (2 <= len(args) and len(args) <=3):
+        vals = args[:-1]
+        raise PySchemeError(f"Wron number of arguments to load: {vals}")
+    symbol = args[0]
+    quiet = args[1] if len(args) > 1 else True
+    env: Env = args[-1]
+    if prim_stringp(symbol):
+        symbol = eval(symbol)
+    check_type(symbol, prim_symbolp, 0, "load")
+    with pyscm_open(symbol) as fp:
+        lines = fp.readlines()
+    args = (lines, None) if quiet else (lines, )
+    nxtline = lambda: Parser.lines(args)
+    pyscm_repl(nxtline=nxtline, env=env.global_env(), quiet=quiet)
+    return ok
 
 
 def pyscm_open(filename):

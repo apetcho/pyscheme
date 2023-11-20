@@ -599,8 +599,8 @@ def prim_stringp(arg):
 
 
 @primitive("symbol?")
-def prim_symbolp(val):
-    pass
+def prim_symbolp(arg):
+    return isinstance(arg, str) and not prim_stringp(arg)
 
 
 @primitive("nnumber?")

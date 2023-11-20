@@ -493,7 +493,11 @@ def add_primitives(env: Env):
 
 
 def check_type(val, predicate, key, name):
-    pass
+    if not predicate(val):
+        typename = type(val).__name__
+        msg = f"argument {key} of {name} has wrong type ({typename})"
+        raise PySchemeError(msg)
+    return val
 
 
 @primitive("boolean?")

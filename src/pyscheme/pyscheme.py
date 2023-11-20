@@ -25,6 +25,8 @@ class Okay:
     def __repr__(self):
         return "Ok"
 
+ok = Okay()
+
 # -*-------------*-
 # -*- buffer.py -*-
 # -*-------------*-
@@ -764,6 +766,7 @@ def prim_display(arg):
     if prim_stringp(arg):
         arg = eval(arg)
     print(f"{arg}", end="")
+    return ok
 
 
 @primitive("print")

@@ -7,8 +7,9 @@ import tokenize
 import itertools
 import functools
 import operator
+from io import FileIO
 from typing import (
-    Tuple, Union, Callable, Dict, List, Iterator, Any, Optional
+    Tuple, Union, Callable, Dict, List, Iterator, Any, Optional,
 )
 
 
@@ -1027,8 +1028,17 @@ def pyscm_load(*args):
     return ok
 
 
-def pyscm_open(filename):
-    pass
+def pyscm_open(filename: str) -> FileIO:
+    try:
+        return open(filename)
+    except IOError as err:
+        if filename.endswith(".scm"):
+            raise PySchemeError(str(err))
+        
+    try:
+        return open(f"{filename}.scm")
+    except IOError as err:
+        raise PySchemeError(str(err))
 
 
 def create_global_env(vals, env):

@@ -246,7 +246,7 @@ class Pair:
     def __str__(self) -> str:
         result = "(" + str(self.car)
         cdr = self.cdr
-        while isinstance(cdr, Pair):
+        while isinstance(cdr, type(self)):
             result += f" {self.car}"
             cdr = cdr.cdr
         if cdr is not nil:
@@ -254,7 +254,13 @@ class Pair:
         return f"{result})"
     
     def __len__(self):
-        pass
+        n, cdr = 1, self.cdr
+        while isinstance(cdr, type(self)):
+            n += 1
+            cdr = cdr.cdr
+        if cdr is not nil:
+            raise TypeError("length attempted on improper list")
+        return n
     
     def __getitem__(self, idx):
         pass

@@ -793,6 +793,20 @@ def prim_exit():
     raise EOFError
 
 
+def check_form(expr, minval, maxval=None):
+    if not prim_listp(expr):
+        raise PySchemeError(f"Ill-formed express: {str(expr)}")
+    length = len(expr)
+    if length < minval:
+        raise PySchemeError("Too few operands in form")
+    elif maxval is not None and length > maxval:
+        raise PySchemeError("Too many operand in form")
+
+
+def check_params(params):
+    pass
+
+
 def pyscm_lambda(vals, env):
     pass
 
@@ -832,13 +846,6 @@ def pyscm_cond(vals, env):
 def pyscm_begin(vals, env):
     pass
 
-
-def check_form(expr, min, max=None):
-    pass
-
-
-def check_params(params):
-    pass
 
 
 def pyscm_optimize_eval(vals, env):

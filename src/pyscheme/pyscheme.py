@@ -274,8 +274,10 @@ class Pair:
             node = node.cdr
         return node.car
     
-    def __eq__(self, other):
-        pass
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, type(self)):
+            return False
+        return self.car==other.car and self.cdr==other.cdr
     
     def map(self, fun: Callable):
         pass

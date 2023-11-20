@@ -523,8 +523,8 @@ def prim_eqp(x, y):
 
 
 @primitive("pair?")
-def prim_pairp(val):
-    pass
+def prim_pairp(arg):
+    return isinstance(arg, Pair)
 
 
 @primitive("null?")

@@ -644,8 +644,9 @@ def prim_sub(arg0, *args):
 
 
 @primitive("*")
-def prim_mul(*val):
-    pass
+def prim_mul(*args):
+    return _impl_arith(operator.mul, 1, args)
+
 
 @primitive("/")
 def prim_div(x, y):

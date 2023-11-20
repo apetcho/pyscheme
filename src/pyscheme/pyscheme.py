@@ -324,25 +324,36 @@ class Parser:
     
     def __init__(self, source: Buffer):
         self._source = source
-        # self._tmp: Optional[Buffer] = None
+        self.tmp: Optional[Buffer] = None
         
     def read_expr(self):
-        tmp = self._source
-        if tmp.current() is None:
+        self.tmp = self._source
+        if self.tmp.current() is None:
             raise EOFError
-        val = tmp.pop()
+        val = self.tmp.pop()
         if val == "nil":
             return nil
         elif val not in Tokenizer.DELIMITERS:
             return val
-        elif val == "'": # quoted symbol
-            pass    # TODO
+        elif val == "'":    # quoted symbol
+            pass            # TODO: add my code here
         elif val == "(":
-            return self._read_tail(tmp)
+            return self._read_tail(self.tmp)
         raise SyntaxError(f"unexpected token: {val}")
     
     def _read_tail(self):
-        pass
+        try:
+            if self.tmp.current() is None:
+                raise SyntaxError("unexpected end of file")
+            if self.tmp.current() == ")":
+                self.tmp.pop()
+                return nil
+            # TODO: add my code here
+            first = self.read_expr()
+            rest = self._read_tail()
+            return Pair(first, rest)
+        except EOFError:
+            raise SyntaxError("unexpected end of file")
     
     @staticmethod
     def input(prompt="") -> Buffer:

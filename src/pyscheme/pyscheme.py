@@ -488,7 +488,8 @@ def primitive(*names):
     
 def add_primitives(env: Env):
     """Ente bindings in PRIMITIVES into Env, an environment frame."""
-    pass
+    for name, fun in PRIMITIVES.items():
+        env.define(name, fun)
 
 
 def check_type(val, predicate, key, name):

@@ -362,7 +362,12 @@ class Parser:
     
     @staticmethod
     def lines(src:List[str], prompt="", show_prompt=False) -> Buffer:
-        pass
+        if show_prompt:
+            text = src
+        else:
+            text = LineReader(src, prompt)
+        mytoknzr = Tokenizer(text)
+        return Buffer(mytoknzr.tokenize())
     
     @staticmethod
     def readline(line) -> Any:

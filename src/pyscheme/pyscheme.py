@@ -298,16 +298,21 @@ class Nil:
         Nil._instance = self
         
     def __repr__(self):
-        pass
+        return "nil"
     
     def __str__(self):
-        pass
+        return "()"
+    
+    def __len__(self):
+        return 0
     
     def __getitem__(self, idx):
-        pass
+        if idx < 0:
+            raise IndexError("negative index into list")
+        raise IndexError("list index out of bounds")
     
     def map(self, fun: Callable):
-        pass
+        return self
     
 nil = Nil()
 

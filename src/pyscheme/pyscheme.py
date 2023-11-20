@@ -426,6 +426,7 @@ class Env:
     
 class Lambda:
     """Lambda procedure."""
+    __slots__= ("_params", "_body", "_env")
     
     def __init__(self, params, body, env):
         self._params = params
@@ -454,9 +455,19 @@ class Lambda:
     
 class Primitive:
     """Primitive."""
+    __slots__ = ("_callback", "_use_env")
     
     def __init__(self, fun: Callable, use_env=False):
-        pass
+        self._callback = fun
+        self._use_env = use_env
+        
+    @property
+    def callback(self):
+        return self._callback
+    
+    @property
+    def use_env(self):
+        return self._use_env
     
     def __str__(self):
         pass

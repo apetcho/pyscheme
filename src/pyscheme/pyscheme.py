@@ -501,8 +501,8 @@ def check_type(val, predicate, key, name):
 
 
 @primitive("boolean?")
-def prim_booleanp(val):
-    pass
+def prim_booleanp(arg):
+    return arg is True or arg is False
 
 
 def prim_true(val):

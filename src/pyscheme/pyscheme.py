@@ -852,8 +852,9 @@ def pyscm_let(params: Pair, env: Env):
     return (exprs[last], scope)
 
 
-def pyscm_if(vals, env):
-    pass
+def pyscm_if(params, env):
+    check_form(params, 2, 3)
+    # TODO: (not completed) finish the implementation of this part
 
 
 def pyscm_and(vals, env):

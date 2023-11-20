@@ -15,6 +15,16 @@ from typing import (
 class PySchemeError(Exception):
     pass
 
+class Okay:
+    _instance = None
+    def __init__(self):
+        if Okay._instance is not None:
+            return
+        Okay._instance = self
+        
+    def __repr__(self):
+        return "Ok"
+
 # -*-------------*-
 # -*- buffer.py -*-
 # -*-------------*-
@@ -750,8 +760,10 @@ def prim_atomp(arg) -> bool:
 
 
 @primitive("display")
-def prim_display(val):
-    pass
+def prim_display(arg):
+    if prim_stringp(arg):
+        arg = eval(arg)
+    print(f"{arg}", end="")
 
 
 @primitive("print")

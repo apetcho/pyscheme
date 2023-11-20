@@ -528,8 +528,8 @@ def prim_pairp(arg):
 
 
 @primitive("null?")
-def prim_nullp(val):
-    pass
+def prim_nullp(arg):
+    return arg is nil
 
 
 @primitive("list?")

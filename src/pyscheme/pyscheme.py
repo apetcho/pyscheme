@@ -475,7 +475,7 @@ class Primitive:
         return self._use_env
     
     def __str__(self):
-        return "#<primitive>"
+        return f"#<primitive::{self.name}>"
     
     
 PRIMITIVES = {}

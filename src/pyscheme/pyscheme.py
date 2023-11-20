@@ -963,8 +963,19 @@ def pyscm_eval(expr: Optional[Any], env: Env):
         return pyscm_apply(fun, args, env)
 
 
-def pyscm_apply(proc, args, env):
+def apply_primitive(fun, args, env):
+    # TODO: (not completed) finish the implementation of this part
     pass
+
+
+def pyscm_apply(fun, args, env):
+    if isinstance(fun, Primitive):
+        return apply_primitive(fun, args, env)
+    elif isinstance(fun, Lambda):
+        # TODO: (not completed) finish the implementation of this part
+        pass
+    else:
+        raise PySchemeError(f"Cannot call {str(fun)}")
 
 
 def pyscm_repl(

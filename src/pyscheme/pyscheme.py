@@ -777,7 +777,9 @@ def prim_print(arg) -> Okay:
 
 @primitive("newline")
 def prim_newline(val):
-    pass
+    print()
+    sys.stdout.flush()
+    return ok
 
 
 @primitive("error")

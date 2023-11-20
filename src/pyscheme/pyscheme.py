@@ -130,7 +130,7 @@ class Tokenizer:
     def lines(self) -> List[str]:
         return self._lines
         
-    def is_valid_symbol(self, text:str) -> bool:
+    def is_valid_symbol(self) -> bool:
         if len(self.source) == 0:
             return False
         for c in self.source:
@@ -177,7 +177,45 @@ class Tokenizer:
         return (None, len(line))
     
     def tokenize_line(self, line:str) -> List[str]:
-        pass
+        result = []
+        tokenizer = Tokenizer()
+        text, idx = tokenizer.next_token(line, 0)
+        while text is not None:
+            if text in Tokenizer.DELIMITERS:
+                result.append(text)
+            elif text=='#t' or text.lower() == "true":
+                result.append(True)
+            elif text=="#f" or text.lower() == "false":
+                result.append(False)
+            elif text=="nil":
+                result.append(text)
+            elif text[0] in Tokenizer.SYMBOLCHARS:
+                number = False
+                if text[0] in Tokenizer.NUMCHARS:
+                    try:
+                        result.append(int(text))        # an integer
+                        number = True
+                    except ValueError:
+                        try:
+                            result.append(float(text))  # a float
+                            number = True
+                        except ValueError:
+                            pass
+                if not number:                          # maybe symbol
+                    mytknzr = Tokenizer(text)
+                    if mytknzr.is_valid_symbol():       # is a symbol
+                        result.append(text.lower())
+                    else:                               # not a symbol
+                        raise ValueError(f"invalid numeral or symbol: {text}")
+            elif text[0] in Tokenizer.STRING_DELIMITER: # string
+                result.append(text)
+            else:                                       # Error
+                print(f"warning: invalid token: {text}", file=sys.stdout)
+                print(f"    {line}", file=sys.stderr)
+                print(f"{' '*(idx+3)}^", file=sys.stderr)
+            mytknzr = Tokenizer()
+            text, idx = mytknzr.next_token(line, idx)
+        return result
     
     def tokenize(self) -> Iterator:
         pass

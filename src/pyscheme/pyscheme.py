@@ -776,15 +776,16 @@ def prim_print(arg) -> Okay:
 
 
 @primitive("newline")
-def prim_newline(val):
+def prim_newline():
     print()
     sys.stdout.flush()
     return ok
 
 
 @primitive("error")
-def prim_error(val):
-    pass
+def prim_error(message: Optional[str]=None):
+    message = "" if message is None else str(message)
+    raise PySchemeError(message)
 
 
 @primitive("exit")

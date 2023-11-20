@@ -562,13 +562,16 @@ def prim_car(arg: Union[Pair, Any]):
 
 @primitive("cdr")
 def prim_cdr(arg: Union[Pair, Any]):
-    check_type(arg, prim_pairp, 0, "car")
+    check_type(arg, prim_pairp, 0, "cdr")
     return arg.cdr
 
 
 @primitive("list")
-def prim_list(*val):
-    pass
+def prim_list(*args):
+    result = nil
+    for i in range(len(args)-1, -1, -1):
+        result = Pair(args[i], result)
+    return result
 
 
 @primitive("append")

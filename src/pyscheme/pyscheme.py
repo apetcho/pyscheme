@@ -409,7 +409,10 @@ class Env:
         raise PySchemeError("unknown identifier")
     
     def global_env(self):
-        pass
+        env = self
+        while env.parent is not None:
+            env = env.parent
+        return env
     
     def make_call_env(self, formals, vals):
         pass

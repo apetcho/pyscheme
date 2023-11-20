@@ -620,8 +620,14 @@ def _check_numbers(*args):
             raise PySchemeError(msg)
 
 
-def _arith(fun, init, vals):
-    pass
+def _impl_arith(fun, init, args):
+    _check_numbers(*args)
+    acc = init
+    for num in args:
+        acc = fun(acc, num)
+    if round(acc) == acc:
+        acc = round(acc)
+    return acc
 
 
 @primitive("+")

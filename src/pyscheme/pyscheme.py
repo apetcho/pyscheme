@@ -118,12 +118,12 @@ class Tokenizer:
     )
     DELIMITERS = SINGLE_TOKEN_CHARS | {'.', ',', ',@'}
     
-    def __init__(self, source: str):
+    def __init__(self, source: Optional[str]=None):
         self._source = source
-        self._lines = source.split("\n")
+        self._lines = None if source is None else source.split("\n")
         
     @property
-    def source(self):
+    def source(self) -> Optional[str]:
         return self._source
     
     @property
@@ -138,8 +138,43 @@ class Tokenizer:
                 return False
         return True
     
-    def next_token(self, line:str, idx:int) -> Tuple[str, int]:
-        pass
+    def next_token(self, line:str, idx:int) -> Tuple[Optional[str], int]:
+        """A tuple (tok, idx), where tok is the next substring of line at or
+        after position k that could be a token (assuming it passes a validity
+        check), and idx is the position in line following that token.
+        
+        Returns (None, len(line)) when there are no more tokens.
+        """
+        while idx < len(line):
+            c = line[idx]
+            if c == ';':                                # comment
+                return (None, len(line))
+            elif c in Tokenizer.WHITESPACE_CHARS:
+                idx += 1
+            elif c in Tokenizer.SINGLE_TOKEN_CHARS:     # '(', ')', '\'', '`'
+                return (c, idx+1)
+            elif c == '#':                              # Boolean #t and #f
+                return (line[idx:idx+2], min(idx+2, len(line)))
+            elif c == ',':                              # Unquote: ,@
+                if idx+1 < len(line) and line[idx+1] == '@':
+                    return (',@', idx+2)
+                return (c, idx+1)
+            elif c in Tokenizer.STRING_DELIMITER:
+                if idx + 1 < len(line) and line[idx+1]==c: # No triple quote
+                    return (c+c, idx+2)
+                linebytes = (bytes(line[idx:], encoding="utf-8"))
+                token_stream = tokenize.tokenize(iter(linebytes).__next__)
+                next(token_stream)   # Throw away encoding token
+                token = next(token_stream)
+                if token.type != tokenize.STRING:
+                    raise ValueError(f"invalid string: {token.string}")
+                return (token.string, token.end[1]+idx)
+            else:
+                i = idx
+                while i < len(line) and line[i] and line[i] in Tokenizer.TOKEN_END:
+                    i += 1
+                return (line[idx:i], min(i, len(line)))
+        return (None, len(line))
     
     def tokenize_line(self, line:str) -> List[str]:
         pass

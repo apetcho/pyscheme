@@ -1041,5 +1041,11 @@ def pyscm_open(filename: str) -> FileIO:
         raise PySchemeError(str(err))
 
 
-def create_global_env(vals, env):
-    pass
+def create_global_env() -> Env:
+    env = Env(None)
+    env.define("eval", Primitive(pyscm_eval, True))
+    env.define("apply", Primitive(pyscm_apply, True))
+    env.define("load", Primitive(pyscm_load, True))
+    env.define("import", Primitive(pyscm_load, True))
+    add_primitives(env)
+    return env

@@ -509,8 +509,8 @@ def prim_true(arg):
     return arg is not False
 
 
-def prim_false(val):
-    pass
+def prim_false(arg):
+    return arg is False
 
 
 @primitive("not")

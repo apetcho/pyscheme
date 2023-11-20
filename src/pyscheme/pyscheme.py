@@ -371,7 +371,7 @@ class Parser:
     
     @staticmethod
     def readline(line) -> Any:
-        pass
+        return Parser(Buffer(Tokenizer([line]).tokenize())).read_expr()
     
 
 # -*----------------*-

@@ -542,8 +542,11 @@ def prim_listp(arg: Union[Pair, Any]) -> bool:
 
 
 @primitive("length")
-def prim_length(val):
-    pass
+def prim_length(arg:Union[Pair, Any]) -> int:
+    if arg is nil:
+        return 0
+    check_type(arg, prim_listp, 0, "length")
+    return len(arg)
 
 
 @primitive("cons")

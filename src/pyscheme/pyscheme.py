@@ -673,13 +673,17 @@ def prim_modulo(x, y):
 
 
 @primitive("floor")
-def prim_floor(val):
-    pass
+def prim_floor(arg):
+    _check_numbers(arg)
+    return math.floor(arg)
 
 
 @primitive("ceil")
 def prim_ceil(val):
     pass
+
+# TODO: implement other basic math function including:
+# cos, sin, tan, acos, asin, acos, hypot, ...
 
 
 def _numcomp(op, x, y):

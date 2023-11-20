@@ -866,12 +866,27 @@ def pyscm_quote(arg, env):
     return Pair("quote", Pair(arg, nil))
 
 
-def pyscm_or(vals, env):
+def pyscm_or(arg, env):
+    # TODO: (not completed) finish the implementation of this part
     pass
 
 
-def pyscm_cond(vals, env):
-    pass
+def pyscm_cond(args, env):
+    nclauses = len(args)
+    for i, clause in enumerate(args):
+        check_form(clause, 1)
+        if clause.car == "else":
+            if i < nclauses - 1:
+                raise PySchemeError("else must be last")
+            test = True
+            if clause.cdr is nil:
+                raise PySchemeError("Invalid else clause")
+        else:
+            test = pyscm_eval(clause.car, env)
+        if prim_true(test):
+            # TODO: (not completed) finish the implementation of this part
+            pass
+    return ok
 
 
 def pyscm_begin(vals, env):

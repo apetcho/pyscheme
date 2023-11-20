@@ -428,7 +428,22 @@ class Lambda:
     """Lambda procedure."""
     
     def __init__(self, params, body, env):
-        pass
+        self._params = params
+        self._body = body
+        self._env = env
+        
+    @property
+    def params(self):
+        return self._params
+    
+    @property
+    def body(self):
+        return self._body
+    
+    @property
+    def env(self):
+        return self._env
+        
     
     def __init__(self):
         pass

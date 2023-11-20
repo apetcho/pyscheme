@@ -790,7 +790,7 @@ def prim_error(message: Optional[str]=None):
 
 @primitive("exit")
 def prim_exit():
-    pass
+    raise EOFError
 
 
 def pyscm_lambda(vals, env):

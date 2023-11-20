@@ -419,8 +419,9 @@ class Env:
         # TODO : add my code here
         return env
     
-    def define(self, sym, val):
-        pass
+    def define(self, symbol, value):
+        """Define scheme symbol (symbol) to have value (value) in the current Env."""
+        self.bindings[symbol] = value
     
     
 class Lambda:

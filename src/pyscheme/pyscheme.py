@@ -713,8 +713,8 @@ def prim_less_equal(x, y):
 
 
 @primitive(">=")
-def prim_greater_equal(val):
-    pass
+def prim_greater_equal(x, y):
+    return _impl_num_cmp(operator.ge, x, y)
 
 
 @primitive("even?")

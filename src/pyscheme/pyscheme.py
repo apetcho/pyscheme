@@ -693,8 +693,8 @@ def _impl_num_cmp(op, x, y):
 
 
 @primitive("=")
-def prim_eq(val):
-    pass
+def prim_eq(x, y):
+    return _impl_num_cmp(operator.eq, x, y)
 
 
 @primitive("<")

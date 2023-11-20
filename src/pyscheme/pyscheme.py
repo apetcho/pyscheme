@@ -23,7 +23,10 @@ class Buffer:
         self.current()
         
     def pop(self) -> str:
-        pass
+        """Remove the next item from this buffer and return it."""
+        current = self.current()
+        self.index += 1
+        return current
     
     @property
     def has_more(self) -> bool:

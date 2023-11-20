@@ -561,8 +561,9 @@ def prim_car(arg: Union[Pair, Any]):
 
 
 @primitive("cdr")
-def prim_cdr(val):
-    pass
+def prim_cdr(arg: Union[Pair, Any]):
+    check_type(arg, prim_pairp, 0, "car")
+    return arg.cdr
 
 
 @primitive("list")
